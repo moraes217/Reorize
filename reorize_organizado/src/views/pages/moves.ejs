@@ -1,0 +1,242 @@
+<style>
+  ::placeholder{
+    color: black !important;
+  }
+</style>
+<body class="roboto">
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
+
+    <%- include('../partials/nav') %>
+
+    <!-- Menu Hamburguer -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
+      <div class="navbar-nav float-left text-left px-2">
+        <a class="nav-item nav-link nav-link-custom px-2" href="dashboard"><img src="public/svg/home.svg" alt="home"> Visão Geral</a>
+        <a class="nav-item nav-link nav-link-custom px-2 active" href="moves"><img src="public/svg/transfer.svg" alt="transfer"> Movimentações</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="target"><img src="public/svg/objective.svg" alt="objective"> Orçamentos</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="calculator"><img src="public/svg/calculator.svg" alt="calculator"> Calculadora Financeira</a>
+        <form action="/logout" method="post"><button class="nav-item nav-link nav-link-custom px-2 mx-1 btn"><img src="public/svg/exit.svg" alt="exit"> Sair</button></form>
+      </div>
+    </div>
+
+    
+  </nav>
+
+
+  <!-- conteudo -->
+  <div class="container mt-3">
+
+    <% if(data.errors !== ""){ %>
+      <% data.errors.forEach(function(error) { %>
+        <div class="alert-danger text-center m-3"><%- error %></div>  
+      <%});%>
+    <% } %>
+    
+    <div class="container border">
+    <table class="table table-borderless my-1">
+      <thead>
+        <tr>
+          <th scope="col" class="text-center">Receita</th>
+          <th scope="col" class="text-center">Despesa</th>
+        </tr>
+        <tr>
+          <th scope="col" class="text-center">R$ <%= (data.data_balance_p).toFixed(2) %></th>
+          <th scope="col" class="text-center">R$ <%= (data.data_balance_l).toFixed(2) %></th>
+        </tr>
+      </thead>
+    </table>
+    </div>
+    <div class="container border">
+      <div class="row">
+        <div class="col">
+          <table class="table table-light table-hover my-2">
+            <tbody>
+              <% data.data_registry_p.forEach(function(registry_profit) { %>
+              <tr>
+                <td class="text-center lato"><%= moment(registry_profit.dt_registry).format('DD/MM/YYYY')%> <%= registry_profit.nm_category %>  R$ <%= (registry_profit.vl_registry).toFixed(2) %></td>
+                <td class="text-center">
+                  <button type="button" class="btn btn-outline-primary has-tooltip" data-placement="left" data-toggle="modal" data-target="#edit-income" data-whatever="<%- registry_profit.id %>"
+                  data-moaccount="<%- registry_profit.id_account %>" data-modescription="<%- registry_profit.desc_registry %>" data-mocategory="<%- registry_profit.id_category %>" 
+                  data-movalue="<%- registry_profit.vl_registry %>" data-modate="<%- moment(registry_profit.dt_registry).format('YYYY-MM-DD') %>" data-motype="<%- registry_profit.type_registry %>">
+                    <img src="public/svg/pencil.svg" alt="edit" data-toggle="tooltip" data-placement="left" title="Editar">
+                  </button>
+                  <a href="/del-moves/<%- registry_profit.id %>">
+                    <button type="button" class="btn btn-outline-danger" id="remove-income">
+                      <img src="public/svg/x-circle.svg" alt="remove" data-toggle="tooltip" data-placement="left" title="Remover">
+                    </button>
+                  </a>
+                </td>
+                
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+        <div class="col">
+          <table class="table table-light table-hover my-2">
+            <tbody>
+              <% data.data_registry_l.forEach(function(registry_loss) { %>
+                <tr>
+                  <td class="text-center lato"><%= moment(registry_loss.dt_registry).format('DD/MM/YYYY')%> <%= registry_loss.nm_category %>  R$ <%= (registry_loss.vl_registry).toFixed(2) %></td>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-outline-primary has-tooltip" data-placement="left" data-toggle="modal" data-target="#edit-expense" data-whatever="<%- registry_loss.id %>"
+                      data-moaccount="<%- registry_loss.id_account %>" data-modescription="<%- registry_loss.desc_registry %>" data-mocategory="<%- registry_loss.id_category %>" 
+                      data-movalue="<%- registry_loss.vl_registry %>" data-modate="<%- moment(registry_loss.dt_registry).format('YYYY-MM-DD') %>" data-motype="<%- registry_loss.type_registry %>">
+                      <img src="public/svg/pencil.svg" alt="edit" data-toggle="tooltip" data-placement="left" title="Editar">
+                    </button>
+                    <a href="/del-moves/<%- registry_loss.id %>">
+                      <button type="button" class="btn btn-outline-danger" id="remove-expense">
+                        <img src="public/svg/x-circle.svg" alt="remove" data-toggle="tooltip" data-placement="left" title="Remover">
+                      </button>
+                    </a>
+                  </td>
+                  
+                </tr>
+                <% }); %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  <!-- Modal Formulario Receita -->
+  <div class="modal fade btn-custom-opacity" id="edit-income" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="title">Editar Receita</h5>
+          <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Formulario Registro -->
+          <div class="container-lg">
+            <form action="edit" method="post">
+              <input type="hidden" name="id" id="id" value="">
+              <div class="form-group p-3">
+                <label for="account">Conta</label>
+                <select name="account" id="account" class="form-control form-select">
+                  <% data.data_account.forEach(function(edit_account) { %>
+                  <option value="<%= edit_account.id %>"><%= edit_account.nm_account %></option>
+                <% }); %>
+                </select>
+              </div>
+              <div class="form-group p-3">
+                <label for="desc_item">Descrição</label>
+                <input type="text" name="desc_item" id="desc_item" class="form-control">
+              </div>
+              <div class="form-group p-3">
+                <label for="category">Categoria</label>
+                <select name="category" id="category" class="form-control form-select">
+                  <% data.data_category.forEach(function(edit_category) {%>
+                    <option value="<%= edit_category.id %>"><%= edit_category.nm_category%></option>
+                  <% }); %>
+                </select>
+              </div>
+              <div class="form-group p-3">
+                <label for="value">Valor</label>
+                <input type="text" name="value" id="value" class="money form-control">
+              </div>
+              <div class="form-group p-3">
+                <label for="date">Data</label>
+                  <input type="date" name="date" id="date" class="form-control" onclick="dt()">
+              </div>
+              <div class="form-group p-3">
+                <label for="type">Tipo</label>
+                <select name="type" id="type" class="form-control form-select">
+                  <option value="Receita">Receita</option>
+                  <option value="Despesa">Despesa</option>
+                </select>
+              </div>
+              <div class="col-sm-12 p-4 text-center">
+                <button class="btn btn-custom text-white" type="submit" name="button">Enviar</button>
+                <button class="btn btn-custom text-white" type="reset" name="button">Apagar</button>
+              </div>
+            </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Formulario Despesa -->
+  <div class="modal fade btn-custom-opacity" id="edit-expense" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="title">Editar Despesa</h5>
+          <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Formulario Registro -->
+          <div class="container-lg">
+            <form action="edit" method="post">
+              <input type="hidden" name="id" id="id" value="">
+              <div class="form-group p-3">
+                <label for="account">Conta</label>
+                <select name="account" id="account" class="form-control form-select">
+                  <% data.data_account.forEach(function(edit_account) { %>
+                    <option value="<%= edit_account.id %>"><%= edit_account.nm_account %></option>
+                  <% }); %>
+                </select>
+              </div>
+              <div class="form-group p-3">
+                <label for="desc_item">Descrição</label>
+                <input type="text" name="desc_item" id="desc_item" class="form-control">
+              </div>
+              <div class="form-group p-3">
+                <label for="category">Categoria</label>
+                <select name="category" id="category" class="form-control form-select">
+                  <% data.data_category.forEach(function(edit_category) {%>
+                    <option value="<%= edit_category.id %>"><%= edit_category.nm_category%></option>
+                  <% }); %>
+                </select>
+              </div>
+              <div class="form-group p-3">
+                <label for="value">Valor</label>
+                <input type="text" name="value" id="value" class="money form-control">
+              </div>
+              <div class="form-group p-3">
+                <label for="date">Data</label>
+                <input type="date" name="date" id="date" class="form-control">
+              </div>
+              <div class="form-group p-3">
+                <label for="type">Tipo</label>
+                <select name="type" id="type" class="form-control form-select">
+                  <option value="Receita">Receita</option>
+                  <option value="Despesa">Despesa</option>
+                </select>
+              </div>
+              <div class="col-sm-12 p-4 text-center">
+                <button class="btn btn-custom text-white" type="submit" name="button">Enviar</button>
+                <button class="btn btn-custom text-white" type="reset" name="button">Apagar</button>
+              </div>
+            </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('../partials/body') %>
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
+  <script src="js/bootstrap-datepicker.pt-BR.min.js"></script>
+  <script src="public/js/moves.js"></script>
+  <script src="public/js/script.js"></script>
+</body>

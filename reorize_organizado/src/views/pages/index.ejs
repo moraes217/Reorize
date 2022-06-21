@@ -1,0 +1,43 @@
+<body class="roboto">
+  <!-- Video de Fundo -->
+  <video autoplay loop muted id="background">
+    <source src="public/video/reorize.mp4" type="video/mp4">
+    </video>
+    <!-- Container de Informações -->
+    <div class="vertical-center">
+      <div class="container">
+        <section class="row h-100">
+          <header class="container h-100">
+            <div class="d-flex align-items-center justify-content-center h-100">
+              <div class="d-flex flex-column">
+                <h1 class="righteous text-warning text align-self-center p-2">®eorize</h1>
+                <h3 class="lato text-light text align-self-center p-2">A gerência simples em seu computador</h3>
+                  <!-- Formulario Login -->
+                <div class="col align-self-center p-5">
+                  <form action="/login" method="POST">
+                    <div class="form-group pb-3">
+                      <input type="email" name="email" class="form-control transparent-input p-2" placeholder="Email">
+                    </div>
+                    <div class="form-group pt-2">
+                      <input type="password" name="password" class="form-control transparent-input" placeholder="Senha">
+                    </div>
+                    <div class="col-sm-12 pt-4 pb-2 text-center">
+                      <button class="btn btn-secondary" type="submit" name="button">Logar</button>
+                    </div>
+                  </form>
+                  <p class="lato text-light text-center p-2">Não tem uma conta?<a href="register" class="badge badge-light badge-pill">Cadastre-se</a>já</p>
+                </div>
+
+                <%  if(errors !=="") { %>
+                  <% errors.forEach(function(item) { %>
+                    <div class="alert-danger text-center"><%- item %></div>
+                  <% }); %>
+                <% } %>
+
+              </div>
+            </div>
+          </header>
+        </section>
+      </div>
+    </div>
+</body>

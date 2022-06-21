@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reorize</title>
+    <link rel='shortcut icon' type='image/x-icon' href='../img/reorize.ico' />
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Righteous&family=Roboto&display=swap" rel="stylesheet"> 
+
+</head>
+<body class="roboto">
+  <!-- Video de Fundo -->
+  <video autoplay loop muted id="background">
+    <source src="../video/reorize.mp4" type="video/mp4">
+    </video>
+    <!-- Container de Informações -->
+    <div class="vertical-center">
+      <div class="container">
+        <section class="row h-100">
+          <header class="container h-100">
+            <div class="d-flex align-items-center justify-content-center h-100">
+              <div class="d-flex flex-column">
+                <h1 class="righteous text-warning text align-self-center p-2">®eorize</h1>
+                <h3 class="lato text-light text align-self-center p-2">A gerencia simples em seu computador</h3>
+                  <!-- Formulario Cadastro -->
+                  <div class="col align-self-center p-5">
+                    <form action="/register" method="POST" class="was-validated">
+                      <div class="form-group pb-3">
+                        <input type="text" name="name" class="form-control transparent-input" minlength="3" maxlength="50" placeholder="Nome" required>
+                        <div class="valid-feedback"></div>
+                        <div class="invalid-feedback text-light">Digite seu nome de usuario</div>
+                      </div>
+                      <div class="form-group pb-3 pt-1">
+                        <input type="email" name="email" class="form-control transparent-input" placeholder="Email" required>
+                        <div class="valid-feedback"></div>
+                        <div class="invalid-feedback text-light">Digite um email valido</div>
+                      </div>
+                      <div class="form-group pt-1">
+                        <input type="password" name="password" class="form-control transparent-input" minlength="8" placeholder="Senha" required>
+                        <div class="valid-feedback"></div>
+                        <div class="invalid-feedback text-light">Minimo 8 caracteres</div>
+                      </div>
+                      <div class="col-sm-12 pt-4 text-center">
+                        <button class="btn btn-secondary" type="button" name="button"><a href="/" class="text-white text-decoration-none">Voltar</a></button>
+                        <button class="btn btn-secondary" type="submit" name="button">Cadastrar</button>
+                      </div>
+                    </form>
+                  </div>
+              </div>
+            </div>
+          </header>
+        </section>
+      </div>
+    </div>
+</body>
+</html>

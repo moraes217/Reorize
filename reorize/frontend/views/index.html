@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reorize</title>
+    <link rel='shortcut icon' type='image/x-icon' href='../img/reorize.ico' />
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Righteous&family=Roboto&display=swap" rel="stylesheet"> 
+
+</head>
+<body class="roboto">
+  <!-- Video de Fundo -->
+  <video autoplay loop muted id="background">
+    <source src="../video/reorize.mp4" type="video/mp4">
+    </video>
+    <!-- Container de Informações -->
+    <div class="vertical-center">
+      <div class="container">
+        <section class="row h-100">
+          <header class="container h-100">
+            <div class="d-flex align-items-center justify-content-center h-100">
+              <div class="d-flex flex-column">
+                <h1 class="righteous text-warning text align-self-center p-2">®eorize</h1>
+                <h3 class="lato text-light text align-self-center p-2">A gerência simples em seu computador</h3>
+                  <!-- Formulario Login -->
+                <div class="col align-self-center p-5">
+                  <form action="/login" method="POST">
+                    <div class="form-group pb-3">
+                      <input type="email" name="email" class="form-control transparent-input p-2" placeholder="Email">
+                    </div>
+                    <div class="form-group pt-2">
+                      <input type="password" name="password" class="form-control transparent-input" placeholder="Senha">
+                    </div>
+                    <div class="col-sm-12 pt-4 pb-2 text-center">
+                      <button class="btn btn-secondary" type="submit" name="button">Logar</button>
+                    </div>
+                  </form>
+                  <p class="lato text-light text-center p-2">Não tem uma conta?<a href="register" class="badge badge-light badge-pill">Cadastre-se</a>Já</p>
+                </div>
+              </div>
+            </div>
+          </header>
+        </section>
+      </div>
+    </div>
+</body>
+</html>

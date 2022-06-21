@@ -1,0 +1,191 @@
+<style>
+  ::placeholder{
+    color: black !important;
+  }
+</style>
+<body class="roboto">
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
+    
+    <%- include('../partials/nav') %>
+
+    <!-- Menu Hamburguer -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
+      <div class="navbar-nav float-left text-left px-2">
+        <a class="nav-item nav-link nav-link-custom px-2 active" href="dashboard"><img src="public/svg/home.svg" alt="home"> Visão Geral</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="moves"><img src="public/svg/transfer.svg" alt="transfer"> Movimentações</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="target"><img src="public/svg/objective.svg" alt="objective"> Orçamentos</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="calculator"><img src="public/svg/calculator.svg" alt="calculator"> Calculadora Financeira</a>
+        <form action="/logout" method="post"><button class="nav-item nav-link nav-link-custom px-2 mx-1 btn"><img src="public/svg/exit.svg" alt="exit"> Sair</button></form>
+      </div>
+    </div>
+
+
+    
+  </nav>
+  
+
+  
+  
+  <!-- conteudo -->
+  <div class="container mt-3">
+
+    <% if(data.errors !== ""){ %>
+      <% data.errors.forEach(function(error) { %>
+        <div class="alert-danger text-center m-3"><%- error %></div>  
+      <%});%>
+    <% } %>
+
+    <div class="row">
+      <div class="col border text-center">
+        <div class="mt-2">
+        <p class="bold">Saldo</p>
+        </div>
+        <div class="m-2">
+          <% var balance = (data.data_balance_ger + data.data_balance_p - data.data_balance_l).toFixed(2) %>
+          <% if(balance < 0 ) { %>
+              <p class="bold text-danger">R$ <%= balance %></p>
+            <% }else { %>
+              <p class="bold">R$ <%= balance %></p>
+            <% } %>
+        </div>
+      </div>
+      <div class="col border text-center">
+        <div class="mt-2">
+        <p class="bold">Despesa Total</p>
+        </div>
+        <div class="m-2">
+        <p class="bold">R$ <%= (data.data_balance_l).toFixed(2) %> </p>
+        </div>
+      </div>
+      <div class="w-100"></div>
+      <div class="col border text-center mt-3">
+        <div class="mt-2">
+          <p class="bold">Registros Recentes</p>
+        </div>
+        <div class="row">
+          <% data.data_recent_records.forEach(function(record) {%>
+          <div class="col-md-3 mt-2" data-tt="<%- record.nm_category %>">
+            <%= record.nm_category %>  R$ <%= (record.vl_registry).toFixed(2) %>
+          </div>
+          <% }); %>
+        </div>
+      </div>
+      <div class="w-100"></div>
+      <div class="col border text-center mt-3">
+        <div class="mt-2">
+          <p class="bold">Despesas por Categoria</p>
+          <div>
+            <canvas id="doughnut-chart-expense" width="150" height="100" class="mb-4"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col border text-center mt-3">
+        <div class="mt-2">
+          <p class="bold">Receitas</p>
+          <div>
+            <canvas id="doughnut-chart-income" width="150" height="100" class="mb-4"></canvas>
+          </div>
+          
+        </div>
+      </div>
+    </div>  
+  </div>
+    <%- include('../partials/body') %>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
+  <script src="js/Chart.js"></script>
+  <script src="js/Chart.min.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
+  <script src="js/bootstrap-datepicker.pt-BR.min.js"></script>
+  <script src="public/js/script.js"></script>
+  
+  <script>
+    //script Despesa
+    chartDataExpense = [];
+    nameDataExpense = [];
+    <% data.chart_expense_records.forEach(function(records) { %>
+     chartDataExpense.push(<%= (records.vl_registry).toFixed(2) %>)
+     nameDataExpense.push('<%= records.nm_category %>')
+    <% }) %>
+    
+    if(chartDataExpense.length == 0){
+      chartDataExpense = [1]
+    }
+    if(nameDataExpense.length == 0){
+      nameDataExpense = ['Nehum registro']
+    }
+
+
+    colorsExpense=[]
+    for(let i=0;i<this.chartDataExpense.length;i++){
+      this.colorsExpense.push('#'+Math.floor(Math.random()*16777215).toString(16));
+    }
+
+
+    //script Receita
+    chartDataIncome = [];
+    nameDataIncome = [];
+    <% data.chart_income_records.forEach(function(records) { %>
+     chartDataIncome.push(<%= (records.vl_registry).toFixed(2) %>)
+     nameDataIncome.push('<%= records.desc_registry %>')
+    <% }) %>
+
+    if(chartDataIncome.length == 0){
+      chartDataIncome = [1]
+    }
+    if(nameDataIncome.length == 0){
+      nameDataIncome = ['Nenhum registro']
+    }
+    
+    colorsIncome=[]
+    for(let i=0;i<this.chartDataIncome.length;i++){
+      this.colorsIncome.push('#'+Math.floor(Math.random()*16777215).toString(16));
+    }
+
+
+    // Chartjs
+    //Grafico Despesas
+    new Chart(document.getElementById("doughnut-chart-expense"), {
+      type: 'doughnut',
+      data: {
+        labels: nameDataExpense,
+        datasets: [
+          {
+            backgroundColor: this.colorsExpense,
+            data: chartDataExpense
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Valores em R$'
+        }
+      }
+    });
+      //Grafico Receitas
+    new Chart(document.getElementById("doughnut-chart-income"), {
+      type: 'doughnut',
+      data: {
+        labels: nameDataIncome,
+        datasets: [
+          {
+            backgroundColor: this.colorsIncome,
+            data: chartDataIncome
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Valores em R$'
+        }
+      }
+    });
+
+  </script>
+</body>

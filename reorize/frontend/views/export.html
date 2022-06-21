@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reorize</title>
+    <link rel='shortcut icon' type='image/x-icon' href='../img/reorize.ico' />
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Righteous&family=Roboto&display=swap" rel="stylesheet"> 
+
+</head>
+<body class="roboto">
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand righteous text-warning px-3 m-0" href="dashboard">®eorize</a>
+    
+    <!-- menu usuario -->
+    <div class="dropdown show px-2">
+      <a class="text-light dropdown-toggle text-decoration-none" href="#" role="button" id="dropdownMenuUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <img src="../svg/emoji.svg" alt="emoji"> Olá, Undefined
+      </a>
+      
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuUser">
+        <a class="dropdown-item" href="profile">Meu Perfil</a>
+        <a class="dropdown-item" data-toggle="modal" data-target="#reestart" href="">Começar do Zero</a>
+        <a class="dropdown-item" href="export">Exportar Dados</a>
+      </div>
+    </div>
+    <!-- Menu Hamburguer -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
+      <div class="navbar-nav float-left text-left px-2">
+        <a class="nav-item nav-link nav-link-custom px-2" href="dashboard"><img src="../svg/home.svg" alt="home"> Visão Geral</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="moves"><img src="../svg/transfer.svg" alt="transfer"> Movimentações</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="target"><img src="../svg/objective.svg" alt="objective"> Orçamentos</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="calculator"><img src="../svg/calculator.svg" alt="calculator"> Calculadora Financeira</a>
+        <form action="/logout" method="post"><button class="nav-item nav-link nav-link-custom px-2 mx-1 btn"><img src="../svg/exit.svg" alt="exit"> Sair</button></form>
+      </div>
+    </div>
+
+    
+  </nav>
+
+  <!-- Modal -->
+  <div class="modal fade btn-custom-opacity" id="reestart" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="title">AVISO</h5>
+          <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Tem certeza que deseja reiniciar a conta?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+          <button type="button" name="clean" id="clean" class="btn btn-primary">Sim</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <div class="container-lg border">
+    <h2 class="text-center p-3">Exportação de Arquivo CSV</h2>
+  </div>
+  <div class="container-lg border">
+    <form action="" method="post">
+      <div class="form-group p-3">
+        <label for="account">Conta:</label>
+        <select name="account" id="account" class="form-control form-select">
+          <option value="1">1</option>
+        </select>
+      </div>
+      <div class="form-group row">
+        <div class="w-50 p-3">
+        <label for="from">De:</label>
+        <input type="date" name="from" id="from" class="form-control">
+        </div>
+        <div class="w-50 p-3">
+        <label for="until">Até:</label>
+        <input type="date" name="until" id="until" class="form-control">
+        </div>
+      </div>
+      <div class="col-sm-12 p-4 text-center">
+        <button class="btn btn-custom text-white" type="button" name="button">Confirmar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- botao flutueante -->
+  <div class="btn-group-fab" role="group" aria-label="FAB Menu">
+    <div>
+      <button type="button" class="btn btn-main btn-custom has-tooltip" data-placement="left">
+        <img src="../svg/menu.svg" alt="menu">
+      </button>
+      <button type="button" class="btn btn-sub btn-primary has-tooltip" data-placement="left" data-toggle="modal" data-target="#add-register">
+        <img src="../svg/add.svg" alt="add" data-toggle="tooltip" data-placement="left" title="Adicionar Registo">
+      </button>
+      <button type="button" class="btn btn-sub btn-danger has-tooltip" data-placement="left" data-toggle="modal" data-target="#add-category">
+        <img src="../svg/folder.svg" alt="category" data-toggle="tooltip" data-placement="left" title="Adicionar Categoria">
+      </button>
+      <button type="button" class="btn btn-sub btn-info has-tooltip" data-placement="left" data-toggle="modal" data-target="#add-goal">
+        <img src="../svg/goal.svg" alt="goal" data-toggle="tooltip" data-placement="left" title="Adicionar Meta">
+      </button>
+      <button type="button" class="btn btn-sub btn-secondary has-tooltip" data-placement="left" data-toggle="modal" data-target="#add-contact">
+        <img src="../svg/chat-verse.svg" alt="chat" data-toggle="tooltip" data-placement="left" title="Contato">
+      </button>
+    </div>
+  </div>
+
+    <!-- Modal Adicionar Registro-->
+    <div class="modal fade btn-custom-opacity" id="add-register" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="title">Adicionar Registro</h5>
+            <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Formulario Registro -->
+            <div class="container-lg">
+              <form action="" method="post">
+                <div class="form-group p-3">
+                  <label for="desc_item">Descrição</label>
+                  <input type="text" name="desc_item" id="desc_item" class="form-control">
+                </div>
+                <div class="form-group p-3">
+                  <label for="category">Categoria</label>
+                  <select name="category" id="category" class="form-control form-select">
+                    <option value="">Alimentação</option>
+                  </select>
+                </div>
+                <div class="form-group p-3">
+                  <label for="value">Valor</label>
+                  <input type="text" name="value" id="value" class="money form-control">
+                </div>
+                <div class="form-group p-3">
+                  <label for="date">Data</label>
+                  <input type="date" name="date" id="date" class="form-control">
+                </div>
+                <div class="form-group p-3">
+                  <label for="type">Tipo</label>
+                  <select name="type" id="type" class="form-control form-select">
+                    <option value="1">Receita</option>
+                    <option value="2">Despesa</option>
+                  </select>
+                </div>
+                <div class="col-sm-12 p-4 text-center">
+                  <button class="btn btn-custom text-white" type="submit" name="button">Enviar</button>
+                  <button class="btn btn-custom text-white" type="reset" name="button">Apagar</button>
+                </div>
+              </form>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Modal Adicionar Categoria-->
+    <div class="modal fade btn-custom-opacity" id="add-category" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="title">Adicionar Categoria</h5>
+            <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Formulario Categoria -->
+            <div class="container-lg">
+              <form action="" method="post">
+                <div class="form-group p-3">
+                  <label for="category">Categoria</label>
+                  <input type="text" name="category" id="category" class="form-control">
+                  </div>
+                <div class="col-sm-12 p-4 text-center">
+                  <button class="btn btn-custom text-white" type="submit" name="button">Enviar</button>
+                </div>
+              </form>
+              </div>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Modal Adicionar Meta-->
+    <div class="modal fade btn-custom-opacity" id="add-goal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="title">Adicionar Meta</h5>
+            <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Formulario Meta -->
+            <div class="container-lg">
+              <form action="" method="post">
+                <div class="form-group p-3">
+                  <label for="category">Categoria</label>
+                  <select name="category" id="category" class="form-control form-select">
+                    <option value="">Alimentação</option>
+                  </select>
+                </div>
+                <div class="form-group p-2">
+                  <label for="value">Valor</label>
+                  <input type="text" name="value" id="value" class="money form-control">
+                  </div>
+                <div class="col-sm-12 p-4 text-center">
+                  <button class="btn btn-custom text-white" type="submit" name="button">Enviar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Modal Adicionar Contato-->
+    <div class="modal fade btn-custom-opacity" id="add-contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="title">Contato</h5>
+            <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-lg border-bottom border-dark">
+              <h2 class="text-center p-3">Contato</h2>
+            </div>
+            <div class="container-lg">
+              <form action="" method="post">
+                <div class="form-group p-3">
+                  <label for="subject">Assunto</label>
+                  <input type="text" name="subject" id="subject" class="form-control">
+                </div>
+                <div class="form-group p-3">
+                  <textarea name="text" id="place" rows="7" class="form-control" placeholder="Duvidas? Ideias? Digite aqui"></textarea>
+                </div>
+                <div class="col-sm-12 p-4 text-center">
+                  <button class="btn btn-custom text-white" type="submit" name="button">Enviar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <script src="../js/script.js"></script>
+</body>
+</html>

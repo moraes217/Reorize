@@ -1,0 +1,43 @@
+$('#edit-income').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var recipient = button.data('whatever')
+    var recipientAccount = button.data('moaccount')
+    var recipientDescription = button.data('modescription')
+    var recipientCategory = button.data('mocategory')
+    var recipientValue = button.data('movalue')
+    var recipientDate = button.data('modate')
+    var recipientType = button.data('motype')
+    
+    var modal = $(this)
+    modal.find('.modal-title').text('Editar Receita ')
+    modal.find('#id').val(recipient)
+    modal.find('#account').val(recipientAccount)
+    modal.find('#desc_item').val(recipientDescription)
+    modal.find('#category').val(recipientCategory)
+    modal.find('#value').val(recipientValue)
+    modal.find('#date').val(recipientDate)
+    modal.find("#type").val(recipientType)
+
+})
+
+$('#edit-expense').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var recipient = button.data('whatever')
+    var recipientAccount = button.data('moaccount')
+    var recipientDescription = button.data('modescription')
+    var recipientCategory = button.data('mocategory')
+    var recipientValue = button.data('movalue')
+    var recipientDate = button.data('modate')
+    var recipientType = button.data('motype')
+    
+    var modal = $(this)
+    modal.find('.modal-title').text('Editar Despesa ')
+    modal.find('#id').val(recipient)
+    modal.find('#account').val(recipientAccount)
+    modal.find('#desc_item').val(recipientDescription)
+    modal.find('#category').val(recipientCategory)
+    modal.find('#value').val(recipientValue)
+    modal.find('#date').val(recipientDate)
+    modal.find('#type').val(recipientType)
+
+})

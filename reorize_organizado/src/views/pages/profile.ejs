@@ -1,0 +1,129 @@
+
+<body class="roboto">
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <a class="navbar-brand righteous text-warning px-3 m-0" href="dashboard">®eorize</a>
+    
+
+      <!-- menu usuario -->
+      <div class="dropdown show px-2">
+        <a class="text-light dropdown-toggle text-decoration-none" href="#" role="button" id="dropdownMenuUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="public/svg/emoji.svg" alt="emoji"> Olá, <%= user.nm_user %>
+        </a>
+      
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuUser">
+          <a class="dropdown-item" href="profile">Meu Perfil</a>
+          <a class="dropdown-item" data-toggle="modal" data-target="#reestart" href="">Começar do Zero</a>
+          <a class="dropdown-item" href="export">Exportar Dados</a>
+        </div>
+      </div>
+
+    <!-- Menu Hamburguer -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
+      <div class="navbar-nav float-left text-left px-2">
+        <a class="nav-item nav-link nav-link-custom px-2" href="dashboard"><img src="public/svg/home.svg" alt="home"> Visão Geral</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="moves"><img src="public/svg/transfer.svg" alt="transfer"> Movimentações</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="target"><img src="public/svg/objective.svg" alt="objective"> Orçamentos</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="calculator"><img src="public/svg/calculator.svg" alt="calculator"> Calculadora Financeira</a>
+        <form action="/logout" method="post"><button class="nav-item nav-link nav-link-custom px-2 mx-1 btn"><img src="public/svg/exit.svg" alt="exit"> Sair</button></form>
+      </div>
+    </div>
+
+    
+  </nav>
+
+
+<br>
+  <div class="container">
+    
+    <% if(data.errors !== ""){ %>
+      <% data.errors.forEach(function(error) { %>
+        <div class="alert-danger text-center m-3"><%- error %></div>  
+      <%});%>
+    <% } %>
+
+    <div class="container-lg border">
+      <h2 class="text-center p-3">Perfil</h2>
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab-list" role="tablist">
+          <a class="nav-link active purple" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-controls="nav-info" aria-selected="true">Informações</a>
+          <a class="nav-link purple" id="nav-pass-tab" data-toggle="tab" href="#nav-pass" role="tab" aria-controls="nav-pass" aria-selected="false">Alterar Senha</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container-lg border">
+      <div class="tab-content" id="nav-tabContent">
+        <!-- informaçoes da conta -->
+        <div class="tab-pane fade show active p-5" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
+          <div class="form-group row p-3">
+              <p class="fs-5 fw-bolder">Nome: </p>
+              <p class="fw-light fst-italic"><%= user.nm_user%></p>
+          </div>
+          <div class="form-group row p-3">
+              <p class="fs-5 fw-bolder">Email: </p>
+              <p class="fw-light  fst-italic"><%= user.email_user%></p>
+          </div>
+          <div class="form-group row p-3">
+              <p class="fs-5 fw-bolder">Criado em: </p>
+              <p class="fw-light fst-italic"><%= moment(user.createdAt).format('DD/MM/YYYY')%></p>
+          </div>
+
+        </div>
+        <!-- alterar senha -->
+        <div class="tab-pane fade" id="nav-pass" role="tabpanel" aria-labelledby="nav-pass-tab">
+          <form action="/profile" method="post" class="was-validated">
+            <div class="form-group row">  
+              <div class="w-50 p-3">
+              <label for="name">Nome</label>
+              <input type="hidden" name="user" value="<%= user.id %>">
+              <input type="text" name="name" id="name" class="form-control" minlength="3" required>
+              <div class="valid-feedback"></div>
+              <div class="invalid-feedback">Digite seu nome de usuário</div>
+              </div>
+              <div class="w-50 p-3">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" class="form-control" required>
+              <div class="valid-feedback"></div>
+              <div class="invalid-feedback">Digite seu endereço de email</div>
+              </div>
+            </div>
+            <div class="form-group w-50 p-3 my-auto">
+              <label for="password">Senha Atual</label>
+              <input type="password" name="password" id="password" class="form-control" minlength="8" required>
+              <div class="valid-feedback"></div>
+              <div class="invalid-feedback">Digite sua senha atual</div>
+            </div>
+            <div class="form-group w-50 p-3 my-auto">
+              <label for="new_password">Nova Senha</label>
+              <input type="password" name="new_password" id="new_password" class="form-control" minlength="8" required>
+              <div class="valid-feedback"></div>
+              <div class="invalid-feedback">Digite a nova senha</div>
+            </div>
+            <div class="form-group w-50 p-3 my-auto">
+              <label for="re_new_password">Repetir Nova Senha</label>
+              <input type="password" name="re_new_password" id="re_new_password" class="form-control" minlength="8" required>
+              <div class="valid-feedback"></div>
+              <div class="invalid-feedback">Digite novamente a nova senha</div>
+            </div>
+            <div class="col-sm-12 p-4 ">
+              <button class="btn btn-custom text-white" type="submit" name="button">Confirmar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <%- include('../partials/body') %>
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <script src="public/js/script.js"></script>
+</body>

@@ -1,0 +1,45 @@
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <a class="navbar-brand righteous text-warning px-3 m-0" href="dashboard">®eorize</a>
+
+  <!-- menu usuario -->
+  <div class="dropdown show px-2">
+    <a class="text-light dropdown-toggle text-decoration-none" href="#" role="button" id="dropdownMenuUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <img src="public/svg/emoji.svg" alt="emoji"> Olá, <%= user.nm_user %>
+    </a>
+    
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuUser">
+      <a class="dropdown-item" href="profile">Meu Perfil</a>
+      <a class="dropdown-item" data-toggle="modal" data-target="#reestart" href="">Começar do Zero</a>
+      <a class="dropdown-item" href="export">Exportar Dados</a>
+    </div>
+  </div>
+  
+  <!-- Calendário -->
+  <div class="dropdown show m-2">
+    <a class="text-light dropdown-toggle text-decoration-none" href="#" role="button" id="dropdownMenuCalendar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <img src="public/svg/calendar.svg" alt="calendar"> Calendário
+    </a>
+
+    <div class="dropdown-menu px-2" aria-labelledby="dropdownMenuCalendar">
+      <div class="input-group date">
+        <input type="text" id="date-name" class="form-control datepicker dateFormat">
+      </div>
+    </div>
+  </div>
+
+  <!-- contas -->
+  <div class="dropdown show m-2">
+    <a class="text-light dropdown-toggle text-decoration-none" href="#" role="button" id="dropdownMenuAccounts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <img src="public/svg/account.svg" alt="account"> Contas
+    </a>
+
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuAccounts">
+      <% data.data_account.forEach(function(account) {%>
+        <a class="dropdown-item" href="?account=<%- account.id+'&calendar='+moment(new Date()).format('MM/YYYY') %>"><%= account.nm_account %></a>
+      <% }); %>
+      <a class="dropdown-item" href="" data-toggle="modal" data-target="#add-account">Adicionar Conta</a>
+    </div>
+  </div>

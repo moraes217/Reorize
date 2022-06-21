@@ -1,0 +1,97 @@
+<style>
+  ::placeholder{
+    color: black !important;
+  }
+</style>
+<body class="roboto">
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
+
+    <%- include('../partials/nav') %>
+
+    <!-- Menu Hamburguer -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
+      <div class="navbar-nav float-left text-left px-2">
+        <a class="nav-item nav-link nav-link-custom px-2" href="dashboard"><img src="public/svg/home.svg" alt="home"> Visão Geral</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="moves"><img src="public/svg/transfer.svg" alt="transfer"> Movimentações</a>
+        <a class="nav-item nav-link nav-link-custom px-2 active" href="target"><img src="public/svg/objective.svg" alt="objective"> Orçamentos</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="calculator"><img src="public/svg/calculator.svg" alt="calculator"> Calculadora Financeira</a>
+        <form action="/logout" method="post"><button class="nav-item nav-link nav-link-custom px-2 mx-1 btn"><img src="public/svg/exit.svg" alt="exit"> Sair</button></form>
+      </div>
+    </div>
+
+    
+  </nav>
+
+
+  <!-- conteudo -->
+  <div class="container mt-3">
+    
+    <% if(data.errors !== ""){ %>
+      <% data.errors.forEach(function(error) { %>
+        <div class="alert-danger text-center m-3"><%- error %></div>  
+      <%});%>
+    <% } %>
+
+    <p class="righteous h3 text-center"><%= month+', '+year %></p>
+    <div class="row">
+      <div class="w-100 m-2"></div>
+      <% data.data_target.forEach(function(target) {%>
+      <div class="col border mt-1">
+        <div class="m-2">
+          <div class="row">
+            <div class="col-auto">
+              <a href="/del-target/<%- target.id %>">
+                <button type="button" class="btn btn-outline-danger" id="remove-target">
+                  <img src="public/svg/x-circle.svg" alt="remove" data-toggle="tooltip" data-placement="right" title="Remover">
+                </button>
+              </a>
+            </div>
+            <div class="col">
+              <p class="lato">Adicionado em <%= moment(target.createdAt).format('DD/MM/YYYY') %></p>
+            </div>
+            <div class="col">
+              <p class="bold" style="text-align: right;"><%= target.nm_category %></p>
+            </div>
+          </div>
+          <div class="progress my-1">
+            <% data.data_sum.forEach(function(sum) {%>
+              <% if(sum.id_category === target.id_category){ %>
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: <%= ((sum.vl_registry/target.vl_goal)*100) %>%;"></div>
+              <% } %>
+            <% }); %>
+          </div>
+          <div class="row">
+            <div class="col">
+              <% data.data_sum.forEach(function(sum) {%>
+                <% if(sum.id_category === target.id_category){ %>
+                  <p class="lato h6 mt-3"><%= ((sum.vl_registry/target.vl_goal)*100).toFixed(2) %>%</p>
+                <% } %>
+              <% }); %>
+            </div>
+            <div class="col">
+              
+              <% data.data_sum.forEach(function(sum) {%>
+                <% if(sum.id_category === target.id_category){ %>
+                  <p class="lato h6 mt-3" style="text-align: right;"><%= (sum.vl_registry).toFixed(2) %>/<%= target.vl_goal %></p>
+                <% } %>
+              <% }); %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-100 m-2"></div>
+      <% }); %>
+    </div>
+  </div>
+  
+  <%- include('../partials/body') %>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
+  <script src="js/bootstrap-datepicker.pt-BR.min.js"></script>
+  <script src="public/js/script.js"></script>
+</body>

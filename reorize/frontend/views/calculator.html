@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reorize</title>
+    <link rel='shortcut icon' type='image/x-icon' href='../img/reorize.ico' />
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Righteous&family=Roboto&display=swap" rel="stylesheet"> 
+
+</head>
+<body class="roboto">
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <a class="navbar-brand righteous text-warning px-3 m-0" href="dashboard">®eorize</a>
+    
+    <!-- Menu Hamburguer -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
+      <div class="navbar-nav float-left text-left px-2">
+        <a class="nav-item nav-link nav-link-custom px-2" href="dashboard"><img src="../svg/home.svg" alt="home"> Visão Geral</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="moves"><img src="../svg/transfer.svg" alt="transfer"> Movimentações</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="target"><img src="../svg/objective.svg" alt="objective"> Orçamentos</a>
+        <a class="nav-item nav-link nav-link-custom px-2 active" href="calculator"><img src="../svg/calculator.svg" alt="calculator"> Calculadora Financeira</a>
+        <form action="/logout" method="post"><button class="nav-item nav-link nav-link-custom px-2 mx-1 btn"><img src="../svg/exit.svg" alt="exit"> Sair</button></form>
+      </div>
+    </div>
+
+    
+  </nav>
+  <br>
+
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active purple" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Juros Compostos</a>
+        <a class="nav-item nav-link purple" id="nav-js-tab" data-toggle="tab" href="#nav-js" role="tab" aria-controls="nav-js" aria-selected="false">Juros Simples</a>
+        <a class="nav-item nav-link purple" id="nav-ci-tab" data-toggle="tab" href="#nav-ci" role="tab" aria-controls="nav-ci" aria-selected="false">Calculo de Investimento</a>
+        <a class="nav-item nav-link purple" id="nav-jep-tab" data-toggle="tab" href="#nav-jep" role="tab" aria-controls="nav-jep" aria-selected="false">Juros Efetivos PRICE</a>
+        <a class="nav-item nav-link purple" id="nav-fp-tab" data-toggle="tab" href="#nav-fp" role="tab" aria-controls="nav-fp" aria-selected="false">Financiamento PRICE</a>
+        <a class="nav-item nav-link purple" id="nav-fs-tab" data-toggle="tab" href="#nav-fs" role="tab" aria-controls="nav-fs" aria-selected="false">Financiamento SAC</a>
+      </div>
+    </nav>
+    <!-- tabela -->
+    <div class="tab-content" id="nav-tabContent">
+      <!-- juros compostos -->
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <br>
+        <div class="container">
+          <div class="form-group p-2">
+          <label for="vi">Valor Inicial</label>
+          <input type="text" id="vi" class="money form-control">
+          </div>
+          <div class="form-group p-2">
+          <label for="jp">Juro Percentual</label>
+          <input type="text"  id="jp" class="percent form-control">
+          </div>
+          <div class="form-group p-2">
+          <label for="qm">Quantidade de Meses</label>
+          <input type="text"  id="qm" class="integer form-control">
+          </div>
+          <div class="col-sm-12 p-4 text-center">
+          <button class="btn btn-custom white" type="button" name="button" onclick="calculate()">Calcular</button>
+        </div>
+        </div>
+
+          <div class="container border w-50 text-center p-2">
+            <b class="lato" id="composto"></b>
+          </div>
+
+      </div>
+      <!-- juros simples -->
+      <div class="tab-pane fade" id="nav-js" role="tabpanel" aria-labelledby="nav-js-tab">
+        <br>
+        <div class="container">
+          <div class="form-group p-2">
+            <label for="vi">Valor Inicial</label>
+            <input type="text" id="vi1" class="money form-control">
+            </div>
+            <div class="form-group p-2">
+            <label for="jp">Juro Percentual</label>
+            <input type="text"  id="jp1" class="percent form-control">
+            </div>
+            <div class="form-group p-2">
+            <label for="qm">Quantidade de Meses</label>
+            <input type="text"  id="qm1" class="integer form-control">
+            </div>
+            <div class="col-sm-12 p-4 text-center">
+            <button class="btn btn-custom white" type="button" name="button" onclick="calculate1()">Calcular</button>
+          </div>
+        </div>
+
+        <div class="container border w-50 text-center p-2">
+          <b class="lato" id="simples"></b>
+        </div>
+
+      </div>
+      <!-- calculo de investimento -->
+      <div class="tab-pane fade" id="nav-ci" role="tabpanel" aria-labelledby="nav-ci-tab">
+        <br>
+        <div class="container">
+          <div class="form-group p-2">
+            <label for="vi">Valor Inicial</label>
+            <input type="text" id="vi2" class="money form-control">
+            </div>
+            <div class="form-group p-2">
+            <label for="jp">Juro Percentual</label>
+            <input type="text"  id="jp2" class="percent form-control">
+            </div>
+            <div class="form-group p-2">
+            <label for="qm">Quantidade de Meses</label>
+            <input type="text"  id="qm2" class="integer form-control">
+            </div>
+            <div class="col-sm-12 p-4 text-center">
+            <button class="btn btn-custom white" type="button" name="button" onclick="calculate2()">Calcular</button>
+          </div>
+        </div>
+
+        <div class="container border w-50 text-center p-2">
+          <b class="lato" id="investimento"></b>
+        </div>
+
+      </div>
+      <!-- juros efetivos price -->
+      <div class="tab-pane fade" id="nav-jep" role="tabpanel" aria-labelledby="nav-jep-tab">
+        <br>
+        <div class="container">
+          <div class="form-group p-2">
+            <label for="vi">Valor Inicial</label>
+            <input type="text" id="vi3" class="money form-control">
+            </div>
+            <div class="form-group p-2">
+            <label for="jp">Juro Percentual</label>
+            <input type="text"  id="jp3" class="percent form-control">
+            </div>
+            <div class="form-group p-2">
+            <label for="qm">Quantidade de Meses</label>
+            <input type="text"  id="qm3" class="integer form-control">
+            </div>
+            <div class="col-sm-12 p-4 text-center">
+            <button class="btn btn-custom white" type="button" name="button" onclick="calculate3()">Calcular</button>
+          </div>
+        </div>
+
+        <div class="container border w-50 text-center p-2">
+          <b class="lato" id="efetivos"></b>
+        </div>
+
+      </div>
+      <!-- financiamento price -->
+      <div class="tab-pane fade" id="nav-fp" role="tabpanel" aria-labelledby="nav-fp-tab">
+        <br>
+        <div class="container">
+          <div class="form-group p-2">
+            <label for="vi">Valor Inicial</label>
+            <input type="text" id="vi4" class="money form-control">
+            </div>
+            <div class="form-group p-2">
+            <label for="jp">Juro Percentual</label>
+            <input type="text"  id="jp4" class="percent form-control">
+            </div>
+            <div class="form-group p-2">
+            <label for="qm">Quantidade de Meses</label>
+            <input type="text"  id="qm4" class="integer form-control">
+            </div>
+            <div class="col-sm-12 p-4 text-center">
+            <button class="btn btn-custom white" type="button" name="button" onclick="calculate4()">Calcular</button>
+          </div>
+        </div>
+
+        <div class="container border w-50 text-center p-2">
+          <b class="lato" id="financiamento"></b>
+        </div>
+
+      </div>
+      <!-- financiamento sac -->
+      <div class="tab-pane fade" id="nav-fs" role="tabpanel" aria-labelledby="nav-fs-tab">
+        <br>
+        <div class="container">
+          <div class="form-group p-2">
+            <label for="vi">Valor Inicial</label>
+            <input type="text" id="vi5" class="money form-control">
+            </div>
+            <div class="form-group p-2">
+            <label for="jp">Juro Percentual</label>
+            <input type="text"  id="jp5" class="percent form-control">
+            </div>
+            <div class="form-group p-2">
+            <label for="qm">Quantidade de Meses</label>
+            <input type="text"  id="qm5" class="integer form-control">
+            </div>
+            <div class="col-sm-12 p-4 text-center">
+            <button class="btn btn-custom white" type="button" name="button" onclick="calculate5()">Calcular</button>
+          </div>
+        </div>
+
+        <div class="container border w-50 text-center p-2">
+          <b class="lato" id="sac"></b>
+        </div>
+
+      </div>
+
+      </div>
+    </div>
+
+    
+
+   <!-- botao flutueante -->
+  <div class="btn-group-fab" role="group" aria-label="FAB Menu">
+    <div>
+      <button type="button" class="btn btn-main btn-custom has-tooltip" data-placement="left">
+        <img src="../svg/menu.svg" alt="menu">
+      </button>
+      <button type="button" class="btn btn-sub btn-primary has-tooltip" data-placement="left" data-toggle="modal" data-target="#add-register">
+        <img src="../svg/add.svg" alt="add" data-toggle="tooltip" data-placement="left" title="Adicionar Registo">
+      </button>
+      <button type="button" class="btn btn-sub btn-danger has-tooltip" data-placement="left" data-toggle="modal" data-target="#add-category">
+        <img src="../svg/folder.svg" alt="category" data-toggle="tooltip" data-placement="left" title="Adicionar Categoria">
+      </button>
+      <button type="button" class="btn btn-sub btn-info has-tooltip" data-placement="left" data-toggle="modal" data-target="#add-goal">
+        <img src="../svg/goal.svg" alt="goal" data-toggle="tooltip" data-placement="left" title="Adicionar Meta">
+      </button>
+      <button type="button" class="btn btn-sub btn-secondary has-tooltip" data-placement="left" data-toggle="modal" data-target="#add-contact">
+        <img src="../svg/chat-verse.svg" alt="chat" data-toggle="tooltip" data-placement="left" title="Contato">
+      </button>
+    </div>
+  </div>
+    
+  <!-- Modal Adicionar Registro-->
+  <div class="modal fade btn-custom-opacity" id="add-register" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="title">Adicionar Registro</h5>
+          <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Formulario Registro -->
+          <div class="container-lg">
+            <form action="" method="post">
+              <div class="form-group p-3">
+                <label for="desc_item">Descrição</label>
+                <input type="text" name="desc_item" id="desc_item" class="form-control">
+              </div>
+              <div class="form-group p-3">
+                <label for="category">Categoria</label>
+                <select name="category" id="category" class="form-control form-select">
+                  <option value="">Alimentação</option>
+                </select>
+              </div>
+              <div class="form-group p-3">
+                <label for="value">Valor</label>
+                <input type="text" name="value" id="value" class="money form-control">
+              </div>
+              <div class="form-group p-3">
+                <label for="date">Data</label>
+                <input type="date" name="date" id="date" class="form-control">
+              </div>
+              <div class="form-group p-3">
+                <label for="type">Tipo</label>
+                <select name="type" id="type" class="form-control form-select">
+                  <option value="1">Receita</option>
+                  <option value="2">Despesa</option>
+                </select>
+              </div>
+              <div class="col-sm-12 p-4 text-center">
+                <button class="btn btn-custom text-white" type="submit" name="button">Enviar</button>
+                <button class="btn btn-custom text-white" type="reset" name="button">Apagar</button>
+              </div>
+            </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Adicionar Categoria-->
+  <div class="modal fade btn-custom-opacity" id="add-category" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="title">Adicionar Categoria</h5>
+          <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Formulario Categoria -->
+          <div class="container-lg">
+            <form action="" method="post">
+              <div class="form-group p-3">
+                <label for="category">Categoria</label>
+                <input type="text" name="category" id="category" class="form-control">
+                </div>
+              <div class="col-sm-12 p-4 text-center">
+                <button class="btn btn-custom text-white" type="submit" name="button">Enviar</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Adicionar Meta-->
+  <div class="modal fade btn-custom-opacity" id="add-goal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="title">Adicionar Meta</h5>
+          <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Formulario Meta -->
+          <div class="container-lg">
+            <form action="" method="post">
+              <div class="form-group p-3">
+                <label for="category">Categoria</label>
+                <select name="category" id="category" class="form-control form-select">
+                  <option value="">Alimentação</option>
+                </select>
+              </div>
+              <div class="form-group p-2">
+                <label for="value">Valor</label>
+                <input type="text" name="value" id="value" class="money form-control">
+                </div>
+              <div class="col-sm-12 p-4 text-center">
+                <button class="btn btn-custom text-white" type="submit" name="button">Enviar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Adicionar Contato-->
+  <div class="modal fade btn-custom-opacity" id="add-contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="title">Contato</h5>
+          <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-lg border-bottom border-dark">
+            <h2 class="text-center p-3">Contato</h2>
+          </div>
+          <div class="container-lg">
+            <form action="" method="post">
+              <div class="form-group p-3">
+                <label for="subject">Assunto</label>
+                <input type="text" name="subject" id="subject" class="form-control">
+              </div>
+              <div class="form-group p-3">
+                <textarea name="text" id="place" rows="7" class="form-control" placeholder="Duvidas? Ideias? Digite aqui"></textarea>
+              </div>
+              <div class="col-sm-12 p-4 text-center">
+                <button class="btn btn-custom text-white" type="submit" name="button">Enviar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
+  <script src="../js/script.js"></script>
+</body>
+</html>

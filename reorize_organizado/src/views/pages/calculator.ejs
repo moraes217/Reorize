@@ -1,0 +1,158 @@
+<body class="roboto">
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand righteous text-warning px-3 m-0" href="dashboard">®eorize</a>
+    
+    <!-- Menu Hamburguer -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
+      <div class="navbar-nav float-left text-left px-2">
+        <a class="nav-item nav-link nav-link-custom px-2" href="dashboard"><img src="public/svg/home.svg" alt="home"> Visão Geral</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="moves"><img src="public/svg/transfer.svg" alt="transfer"> Movimentações</a>
+        <a class="nav-item nav-link nav-link-custom px-2" href="target"><img src="public/svg/objective.svg" alt="objective"> Orçamentos</a>
+        <a class="nav-item nav-link nav-link-custom px-2 active" href="calculator"><img src="public/svg/calculator.svg" alt="calculator"> Calculadora Financeira</a>
+        <form action="/logout" method="post"><button class="nav-item nav-link nav-link-custom px-2 mx-1 btn"><img src="public/svg/exit.svg" alt="exit"> Sair</button></form>
+      </div>
+    </div>
+
+    
+  </nav>
+  <br>
+
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active purple" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Juros Compostos</a>
+        <a class="nav-item nav-link purple" id="nav-js-tab" data-toggle="tab" href="#nav-js" role="tab" aria-controls="nav-js" aria-selected="false">Juros Simples</a>
+        <a class="nav-item nav-link purple" id="nav-ci-tab" data-toggle="tab" href="#nav-ci" role="tab" aria-controls="nav-ci" aria-selected="false">Calculo de Porcentagem</a>
+        <a class="nav-item nav-link purple" id="nav-jep-tab" data-toggle="tab" href="#nav-jep" role="tab" aria-controls="nav-jep" aria-selected="false">Conversão Mensal</a>
+        <a class="nav-item nav-link purple" id="nav-fp-tab" data-toggle="tab" href="#nav-fp" role="tab" aria-controls="nav-fp" aria-selected="false">Conversão Anual</a>
+      </div>
+    </nav>
+    <!-- tabela -->
+    <div class="tab-content" id="nav-tabContent">
+      <!-- juros compostos -->
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <br>
+        <div class="container">
+          <div class="form-group p-2">
+            <label for="vi">Valor Inicial</label>
+            <input type="text" id="vi" class="money form-control" onkeypress="calculate()">
+            </div>
+          <div class="form-group p-2">
+            <label for="jp">Juro Percentual</label>
+            <input type="text"  id="jp" class="percent form-control" onkeypress="calculate()">
+          </div>
+          <div class="form-group p-2">
+            <label for="qm">Quantidade de Meses</label>
+            <input type="text"  id="qm" class="integer form-control" onkeypress="calculate()">
+          </div>
+          <div class="col-sm-12 p-4 text-center">
+            <button class="btn btn-custom white" type="button" name="button" onclick="calculate()">Calcular</button>
+          </div>
+        </div>
+
+          <div class="container border w-50 text-center p-2">
+            <b class="lato" id="composto"></b>
+          </div>
+
+      </div>
+      <!-- juros simples -->
+      <div class="tab-pane fade" id="nav-js" role="tabpanel" aria-labelledby="nav-js-tab">
+        <br>
+        <div class="container">
+          <div class="form-group p-2">
+            <label for="vi">Valor Inicial</label>
+            <input type="text" id="vi1" class="money form-control" onkeypress="calculate1()">
+          </div>
+          <div class="form-group p-2">
+            <label for="jp">Juro Percentual</label>
+            <input type="text"  id="jp1" class="percent form-control" onkeypress="calculate1()">
+          </div>
+          <div class="form-group p-2">
+            <label for="qm">Quantidade de Meses</label>
+            <input type="text"  id="qm1" class="integer form-control" onkeypress="calculate1()">
+          </div>
+          <div class="col-sm-12 p-4 text-center">
+            <button class="btn btn-custom white" type="button" name="button" onclick="calculate1()">Calcular</button>
+          </div>
+        </div>
+
+        <div class="container border w-50 text-center p-2">
+          <b class="lato" id="simples"></b>
+        </div>
+
+      </div>
+      <!-- Calculo de porcentagem -->
+      <div class="tab-pane fade" id="nav-ci" role="tabpanel" aria-labelledby="nav-ci-tab">
+        <br>
+        <div class="container">
+          <div class="form-group p-2">
+            <label for="vi">Valor Inicial</label>
+            <input type="text" id="vi2" class="money form-control" onkeypress="calculate2()">
+          </div>
+          <div class="form-group p-2">
+            <label for="jp">Novo Valor</label>
+            <input type="text"  id="jp2" class="money form-control" onkeypress="calculate2()">
+          </div>
+          <div class="col-sm-12 p-4 text-center">
+            <button class="btn btn-custom white" type="button" name="button" onclick="calculate2()">Calcular</button>
+          </div>
+        </div>
+
+        <div class="container border w-50 text-center p-2">
+          <b class="lato" id="porcentagem"></b>
+        </div>
+
+      </div>
+      <!-- Coversão Mensal -->
+      <div class="tab-pane fade" id="nav-jep" role="tabpanel" aria-labelledby="nav-jep-tab">
+        <br>
+        <div class="container">
+          <div class="form-group p-2">
+            <label for="vi">Valor Percentual</label>
+            <input type="text" id="vi3" class="percent form-control" onkeypress="calculate3()">
+          </div>
+            
+          <div class="col-sm-12 p-4 text-center">
+            <button class="btn btn-custom white" type="button" name="button" onclick="calculate3()">Calcular</button>
+          </div>
+        </div>
+
+        <div class="container border w-50 text-center p-2">
+          <b class="lato" id="convercaoM"></b>
+        </div>
+
+      </div>
+      <!-- Conversão Anual -->
+      <div class="tab-pane fade" id="nav-fp" role="tabpanel" aria-labelledby="nav-fp-tab">
+        <br>
+        <div class="container">
+          <div class="form-group p-2">
+            <label for="vi">Valor Percentual</label>
+            <input type="text" id="vi4" class="percent form-control" onkeypress="calculate4()">
+          </div>
+          <div class="col-sm-12 p-4 text-center">
+            <button class="btn btn-custom white" type="button" name="button" onclick="calculate4()">Calcular</button>
+          </div>
+        </div>
+
+        <div class="container border w-50 text-center p-2">
+          <b class="lato" id="conversaoA"></b>
+        </div>
+
+      </div>
+
+      </div>
+    </div>
+
+    <%- include('../partials/body') %>
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
+  <script src="public/js/script.js"></script>
+</body>

@@ -1,0 +1,260 @@
+
+<!-- Modal -->
+  <div class="modal fade btn-custom-opacity" id="reestart" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="title">AVISO</h5>
+          <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Tem certeza que deseja reiniciar a conta?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+          <a href="/reset/<%- user.id %>">
+            <button type="button" name="clean" id="clean" class="btn btn-primary">Sim</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- botao flutueante -->
+  <div class="btn-group-fab" role="group" aria-label="FAB Menu">
+    <div>
+      <button type="button" class="btn btn-main btn-custom has-tooltip" data-placement="left">
+        <img src="public/svg/menu.svg" alt="menu">
+      </button>
+      <button type="button" class="btn btn-sub btn-primary has-tooltip" data-placement="left" data-toggle="modal" data-target="#add-register">
+        <img src="public/svg/add.svg" alt="add" data-toggle="tooltip" data-placement="left" title="Adicionar Registo">
+      </button>
+      <button type="button" class="btn btn-sub btn-danger has-tooltip" data-placement="left" data-toggle="modal" data-target="#add-category">
+        <img src="public/svg/folder.svg" alt="category" data-toggle="tooltip" data-placement="left" title="Adicionar Categoria">
+      </button>
+      <button type="button" class="btn btn-sub btn-info has-tooltip" data-placement="left" data-toggle="modal" data-target="#add-goal">
+        <img src="public/svg/goal.svg" alt="goal" data-toggle="tooltip" data-placement="left" title="Adicionar Meta">
+      </button>
+      <button type="button" class="btn btn-sub btn-secondary has-tooltip" data-placement="left" data-toggle="modal" data-target="#add-contact">
+        <img src="public/svg/chat-verse.svg" alt="chat" data-toggle="tooltip" data-placement="left" title="Contato">
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal adicionar/remover conta -->
+  <div class="modal fade btn-custom-opacity" id="add-account" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="title">Contas</h5>
+          <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Formulario Conta -->
+          <div class="container-lg">
+            <form action="/account" method="post">
+              <div class="form-group p-3">
+                <label for="name_account">Nome</label>
+                <input type="text" name="name_account" id="account" class="form-control">
+                </div>
+              <div class="form-group p-3">
+                <label for="balance_account">Saldo Inicial</label>
+                <input type="text" name="balance_account" value="0" id="account" class="money form-control" placeholder="0.00">
+                <input type="hidden" name="user" value="<%= user.id %>">
+                </div>
+              <div class="col-sm-12 p-4 text-center">
+                <button class="btn btn-custom text-white" type="submit" name="button">Confirmar</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Modal Adicionar Registro-->
+    <div class="modal fade btn-custom-opacity" id="add-register" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="title">Adicionar Registro</h5>
+            <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Formulario Registro -->
+            <div class="container-lg">
+              <form action="/registry" method="post">
+                <div class="form-group p-3">
+                  <label for="account">Conta</label>
+                  <select name="account" id="account" class="form-control form-select">
+                    <% data.data_account.forEach(function(account) {%>
+                    <option value="<%= account.id %>"><%= account.nm_account %></option>
+                    <% }); %>
+                  </select>
+                </div>
+                <div class="form-group p-3">
+                  <label for="desc_item">Descrição</label>
+                  <input type="text" name="desc_item" id="desc_item" class="form-control">
+                </div>
+                <div class="form-group p-3">
+                  <label for="category">Categoria</label>
+                  <select name="category" id="category" class="form-control form-select">
+                    <% data.data_category.forEach(function(category) {%>
+                    <option value="<%= category.id %>"><%= category.nm_category %></option>
+                    <% }); %>
+                  </select>
+                </div>
+                <div class="form-group p-3">
+                  <label for="value">Valor</label>
+                  <input type="text" name="value" id="value" class="money form-control">
+                </div>
+                <div class="form-group p-3">
+                  <label for="date">Data</label>
+                  <input type="date" name="date" id="date" class="form-control">
+                </div>
+                <div class="form-group p-3">
+                  <label for="type">Tipo</label>
+                  <select name="type" id="type" class="form-control form-select">
+                    <option value="Receita">Receita</option>
+                    <option value="Despesa">Despesa</option>
+                  </select>
+                </div>
+                <div class="col-sm-12 p-4 text-center">
+                  <button class="btn btn-custom text-white" type="submit" name="button">Enviar</button>
+                  <button class="btn btn-custom text-white" type="reset" name="button">Apagar</button>
+                </div>
+              </form>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Modal Adicionar Categoria-->
+    <div class="modal fade btn-custom-opacity" id="add-category" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="title">Adicionar Categoria</h5>
+            <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Formulario Categoria -->
+            <div class="container-lg">
+              <form action="/category" method="post">
+                <div class="form-group p-3">
+                  
+                  <label for="category">Categoria</label>
+                  <input type="text" name="category" id="category" class="form-control">
+                  <input type="hidden" name="user" value="<%= user.id %>">
+                  </div>
+                <div class="col-sm-12 p-4 text-center">
+                  <button class="btn btn-custom text-white" type="submit" name="button">Enviar</button>
+                </div>
+              </form>
+              </div>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Modal Adicionar Meta-->
+    <div class="modal fade btn-custom-opacity" id="add-goal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="title">Adicionar Meta</h5>
+            <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Formulario Meta -->
+            <div class="container-lg">
+              <form action="/target" method="post">
+                <div class="form-group p-3">
+                  <label for="account">Conta</label>
+                  <select name="account" id="account" class="form-control form-select">
+                    <% data.data_account.forEach(function(account) {%>
+                      <option value="<%= account.id %>"><%= account.nm_account %></option>
+                    <% }); %>
+                  </select>
+                </div>
+                <div class="form-group p-3">
+                  <label for="category">Categoria</label>
+                  <select name="category" id="category" class="form-control form-select">
+                    <% data.data_category.forEach(function(category) {%>
+                    <option value="<%= category.id %>"><%= category.nm_category %></option>
+                    <% }); %>
+                  </select>
+                </div>
+                <div class="form-group p-2">
+                  <label for="value">Valor</label>
+                  <input type="text" name="value" id="value" class="money form-control">
+                  </div>
+                <div class="col-sm-12 p-4 text-center">
+                  <button class="btn btn-custom text-white" type="submit" name="button">Enviar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Modal Adicionar Contato-->
+    <div class="modal fade btn-custom-opacity" id="add-contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="title">Contato</h5>
+            <button type="button" class="close btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-lg border-bottom border-dark">
+              <h2 class="text-center p-3">Contato</h2>
+            </div>
+            <div class="container-lg">
+              <form action="/contact" method="post">
+                <div class="form-group p-3">
+                  <label for="subject">Assunto</label>
+                  <input type="text" name="subject" id="subject" class="form-control">
+                </div>
+                <input type="hidden" name="user" value="<%= user.id %>">
+                <div class="form-group p-3">
+                  <textarea name="text" id="place" rows="7" class="form-control" placeholder="Duvidas? Ideias? Digite aqui"></textarea>
+                </div>
+                <div class="col-sm-12 p-4 text-center">
+                  <button class="btn btn-custom text-white" type="submit" name="button">Enviar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
